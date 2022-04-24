@@ -1,7 +1,8 @@
 
 # Tgr_Robot_Arm
 
-![image]https://github.com/Xueming10wu/Tgr_Robot_Arm/blob/main/tgr_arm.jpg
+![image](https://github.com/Xueming10wu/Tgr_Robot_Arm/blob/main/tgr_arm.jpg)
+
 Driver of tgr robot with ROS
 
 tgr机械臂的ROS驱动

@@ -5,11 +5,6 @@ Driver of tgr robot with ROS
 tgr机械臂的ROS驱动
 
 
-
-![image](https://github.com/Xueming10wu/Tgr_Robot_Arm/blob/main/tgr_arm.jpg)
-
-
-
 User need download these packages and build them in workshop(ex catkin_ws/src).
 
 用户需要下载这些包，并在工作空间下编译他们(比如 catkin_ws/src)
@@ -33,3 +28,6 @@ If users encounter any problems, please contact us
 Our communication has been printed on the back of the controller
 
 我们的联系方式 在 控制器的背面
+
+
+![image](https://github.com/Xueming10wu/Tgr_Robot_Arm/blob/main/tgr_arm.jpg)

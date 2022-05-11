@@ -22,12 +22,21 @@ void TgrArmRobot::InitJointParam()
 {
     //重要参数
     //旋转+180°(+3.1415926)，需要的节拍
-    plu2angel[0] = -21600; //43200;
-    plu2angel[1] = -42200; //84400;        //115200;
-    plu2angel[2] = -28112; //56225;       //76800;
-    plu2angel[3] = -60800;
-    plu2angel[4] = -44000; //51000
-    plu2angel[5] = -60800; //未定
+
+    // plu2angel[0] = -21600; //43200;
+    // plu2angel[1] = -42200; //84400;        //115200;
+    // plu2angel[2] = -28112; //56225;       //76800;
+    // plu2angel[3] = -60800;
+    // plu2angel[4] = -44000; //51000
+    // plu2angel[5] = -60800; //未定
+
+
+    plu2angel[0] = -21600;  //6.75
+    plu2angel[1] = -43200;  //13.5
+    plu2angel[2] = -28800;  //9
+    plu2angel[3] = -60800;  //19
+    plu2angel[4] = -45000;  //14.0625
+    plu2angel[5] = -60800;  //19
 
     //零点参数
     zeroPlu[0] = 0;
@@ -104,9 +113,9 @@ void TgrArmRobot::startConstruction()
     encoderAngleZero[0] = 0x1a24c;
     encoderAngleZero[1] = 0xb8c8;
     encoderAngleZero[2] = 0xc71c;
-    encoderAngleZero[3] = 0x1bdc3;
-    encoderAngleZero[4] = 0x1c8cb;
-    encoderAngleZero[5] = 0x1cc7c;
+    encoderAngleZero[3] = 0x1bf48;
+    encoderAngleZero[4] = 0xc6d3;
+    encoderAngleZero[5] = 0x00;
 
     //编码器安装方向
     encoderPositiveOrNegative[0] = 1;

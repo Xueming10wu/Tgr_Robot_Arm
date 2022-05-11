@@ -70,13 +70,13 @@ TgrArmRobotRos::TgrArmRobotRos()
     spinner.start();
 
 
-    //获取机器人各个关节的脉冲角度
-    tgrArmRobotPtr->getPose();
+    // //获取机器人各个关节的脉冲角度
+    // tgrArmRobotPtr->getPose();
 
-    usleep(100000); //0.1s间隔
+    // usleep(100000); //0.1s间隔
 
-    //写入到控制器中
-    tgrArmRobotPtr->location_setting();
+    // //写入到控制器中
+    // tgrArmRobotPtr->location_setting();
 
     //回归零点
     //tgrArmRobotPtr->return_to_zero();
@@ -207,7 +207,7 @@ void TgrArmRobotRos::extraFeaturesCB(const tgr_arm_driver::ExtraFeaturesConstPtr
         tgrArmRobotPtr->getEncoders();
         break;
 
-    case GET_POSE:    //22   //获取编码器数据
+    case GET_POSE:    //22   //获取编码器数据，并转化为机器人的当前位置
         tgrArmRobotPtr->getPose();
         usleep(1000);   //1ms
         tgrArmRobotPtr->location_setting();
@@ -389,19 +389,23 @@ void TgrArmRobotRos::executeCB(const control_msgs::FollowJointTrajectoryGoalCons
 #endif
 
         tgrArmRobotPtr->sendTrajectory();
-
         gettimeofday(&tStart, 0);
+
         //等待状态变化 无需特别高的实时性
         usleep(500000); //至少等待0.5s
         while (!tgrArmRobotPtr->isStopped())
         {
         }
+        
+        std::cout << "TgrArmRobotRos::executeCB finished" << endl;
 
         gettimeofday(&tEnd, 0);
         duration_total_actual = ((tEnd.tv_sec - tStart.tv_sec) * 1000000 + tEnd.tv_usec - tStart.tv_usec);
         //cout << ", 实际使用" << ltime << "us，"
 
-        std::cout << "TgrArmRobotRos::executeCB finished" << endl;
+        //动作完成，反馈结果，设置完成状态
+        ros_result.error_code = ros_result.SUCCESSFUL;
+        as->setSucceeded(ros_result);
 
         //检测是否到达最终位置，后期通过一个话题实现紧急取消的功能，使用标志位来通知此处是否被取消
         /*
@@ -417,13 +421,11 @@ void TgrArmRobotRos::executeCB(const control_msgs::FollowJointTrajectoryGoalCons
     }
     //sleep(10);
 
-    //动作完成，反馈结果，设置完成状态
-    ros_result.error_code = ros_result.SUCCESSFUL;
-    as->setSucceeded(ros_result);
 
-    // std::cout << "路径执行完成" << std::endl;
-    // std::cout << "预计使用" << (double)duration_total / 1000000 << "s, 实际使用"
-    //           << (double)duration_total_actual / 1000000 << "s" << std::endl;
+
+    std::cout << "路径执行完成" << std::endl;
+    std::cout << "预计使用" << (double)duration_total / 1000000 << "s, 实际使用"
+              << (double)duration_total_actual / 1000000 << "s" << std::endl;
 }
 
 //向ros系统中更新关节状态
